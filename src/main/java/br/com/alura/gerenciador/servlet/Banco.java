@@ -6,18 +6,19 @@ import java.util.List;
 
 public class Banco {
 
-	private static List<Empresa> lista = new ArrayList<Empresa>();
-	private static Integer id = 0;
+	private static List<Empresa> lista;
+	private static Integer id;
 
 	static {
+		lista = new ArrayList<Empresa>();
 		lista.add(new Empresa(1, "Sacola do Bebê", new Date()));
 		lista.add(new Empresa(2, "Alura", new Date()));
 		lista.add(new Empresa(3, "Celum", new Date()));
-		Banco.id = lista.size();
+		Banco.id = 4;
 	}
 
 	public static void adiciona(Empresa empresa) {
-		empresa.setId(id++);
+		empresa.setId(Banco.id);
 		Banco.lista.add(empresa);
 		Banco.id++;
 	}
