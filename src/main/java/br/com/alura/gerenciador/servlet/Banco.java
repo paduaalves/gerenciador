@@ -5,22 +5,37 @@ import java.util.Date;
 import java.util.List;
 
 public class Banco {
-	
+
 	private static List<Empresa> lista = new ArrayList<Empresa>();
-	
+	private static Integer id = 0;
+
 	static {
-		lista.add(new Empresa("Sacola do Bebê", new Date()));
-		lista.add(new Empresa("Alura", new Date()));
-		lista.add(new Empresa("Celum", new Date()));
+		lista.add(new Empresa(1, "Sacola do Bebê", new Date()));
+		lista.add(new Empresa(2, "Alura", new Date()));
+		lista.add(new Empresa(3, "Celum", new Date()));
+		Banco.id = lista.size();
 	}
-	
-	
-	public void adiciona(Empresa empresa) {
+
+	public static void adiciona(Empresa empresa) {
+		empresa.setId(id++);
 		Banco.lista.add(empresa);
+		Banco.id++;
 	}
-	
-	public List<Empresa> getEmpresas() {
+
+	public static List<Empresa> getEmpresas() {
 		return Banco.lista;
 	}
-	
+
+	public static void remove(Empresa empresa) {
+		Banco.lista.remove(empresa);
+	};
+
+	public static Empresa getEmpresa(Integer id) {
+		for (Empresa empresa : lista) {
+			if (empresa.getId().equals(id)) {
+				return empresa;
+			}
+		}
+		return null;
+	}
 }

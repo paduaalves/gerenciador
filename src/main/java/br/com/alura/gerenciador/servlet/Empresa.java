@@ -1,6 +1,7 @@
 package br.com.alura.gerenciador.servlet;
 
 import java.util.Date;
+import java.util.Objects;
 
 public class Empresa {
 
@@ -18,6 +19,18 @@ public class Empresa {
 
 	public Empresa(String nome, Date dataAbertura) {
 		super();
+		this.nome = nome;
+		this.dataAbertura = dataAbertura;
+	}
+
+	public Empresa(Integer id) {
+		super();
+		this.id = id;
+	}
+
+	public Empresa(Integer id, String nome, Date dataAbertura) {
+		super();
+		this.id = id;
 		this.nome = nome;
 		this.dataAbertura = dataAbertura;
 	}
@@ -44,6 +57,23 @@ public class Empresa {
 
 	public void setDataAbertura(Date dataAbertura) {
 		this.dataAbertura = dataAbertura;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Empresa other = (Empresa) obj;
+		return Objects.equals(id, other.id);
 	}
 
 }

@@ -5,6 +5,8 @@
 
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<c:url value="/removeEmpresa" var="removeEmpresa" />
+<c:url value="/formNovaEmpresa.jsp" var="novaEmpresa" />
 
 <!DOCTYPE html>
 <html>
@@ -20,16 +22,22 @@
 	
 	<br/>
 
+	Total de empresas: ${empresas.size()}  <br/> 
 	Lista de empresas:
 	<br />
 
 	<ul>
 		<c:forEach items="${empresas}" var="empresa">
-			<li>${empresa.nome}- <fmt:formatDate
+			<li>${empresa.id} - ${empresa.nome}- <fmt:formatDate
 					value="${empresa.dataAbertura}" pattern="dd/MM/yyyy" />
+			<a href="${removeEmpresa}?id=${empresa.id}">remover</a>
+			<a href="${novaEmpresa}?id=${empresa.id}">editar</a>
 			</li>
 		</c:forEach>
 
 	</ul>
+	
+	<a href="${novaEmpresa}">Cadastrar</a>
+	
 </body>
 </html>

@@ -1,11 +1,9 @@
 package br.com.alura.gerenciador.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -28,8 +26,7 @@ public class NovaEmpresaServlet extends HttpServlet {
 		} catch (ParseException e) {
 			throw new ServletException(e);
 		}
-		Banco banco = new Banco();
-		banco.adiciona(empresa);
+		Banco.adiciona(empresa);
 
 		response.sendRedirect("/gerenciador/listaEmpresas");
 
