@@ -18,13 +18,13 @@ import br.com.alura.gerenciador.enums.TipoReposta;
 @WebServlet("/entrada")
 public class UnicaEntradaServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+	private static String ROOT_PATH="WEB-INF/view/";
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 			Acao acao = (Acao) Class.forName("br.com.alura.gerenciador.acao." + request.getParameter("acao")).newInstance();
 			String destino = acao.executa(request, response);
 			if(TipoReposta.FOWARD.equals(acao.getTipoReposta())){
-				RequestDispatcher rd = request.getRequestDispatcher(destino);
+				RequestDispatcher rd = request.getRequestDispatcher(ROOT_PATH + destino);
 				rd.forward(request, response);
 			}
 			else {
