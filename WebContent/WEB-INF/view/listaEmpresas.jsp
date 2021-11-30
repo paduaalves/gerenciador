@@ -7,7 +7,7 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <c:url value="/entrada?acao=RemoveEmpresa" var="removeEmpresa" />
 <c:url value="/entrada?acao=MostraEmpresa" var="mostraEmpresa" />
-<c:url value="/formNovaEmpresa.jsp" var="novaEmpresa" />
+<c:url value="/entrada?acao=NovaEmpresaForm" var="novaEmpresa" />
 
 <!DOCTYPE html>
 <html>
