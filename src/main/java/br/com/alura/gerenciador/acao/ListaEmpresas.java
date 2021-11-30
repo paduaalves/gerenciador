@@ -12,6 +12,8 @@ import br.com.alura.gerenciador.modelo.Banco;
 import br.com.alura.gerenciador.modelo.Empresa;
 
 public class ListaEmpresas implements Acao {
+
+	@Override
 	public String executa(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		List<Empresa> lista = Banco.getEmpresas();
 		request.setAttribute("empresas", lista);
