@@ -1,4 +1,4 @@
-package br.com.alura.gerenciador.servlet;
+package br.com.alura.gerenciador.modelo;
 
 import java.util.Date;
 import java.util.Objects;
@@ -57,7 +57,7 @@ public class Empresa {
 
 	public void setDataAbertura(Date dataAbertura) {
 		this.dataAbertura = dataAbertura;
-	}
+	} 
 
 	@Override
 	public int hashCode() {
