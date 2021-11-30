@@ -1,48 +1,42 @@
-package br.com.alura.gerenciador.servlet;
+package br.com.alura.gerenciador.acao;
 
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import br.com.alura.gerenciador.modelo.Banco;
 import br.com.alura.gerenciador.modelo.Empresa;
 
-@WebServlet("/novaEmpresa")
-public class NovaEmpresaServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-
+public class CadastraEmpresa implements Acao {
+	public void executa(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String id = request.getParameter("id");
 		String nomeEmpresa = request.getParameter("nome");
 		String dataAbertura = request.getParameter("dataAbertura");
-		Empresa empresa = new Empresa(nomeEmpresa);
+		Empresa empresa = Empresa.builder().nome(nomeEmpresa).build();
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		Date dataAberturaConvertida = null;
 		try {
-			dataAberturaConvertida=sdf.parse(dataAbertura); 
-			empresa.setDataAbertura(dataAberturaConvertida);
+			if(dataAbertura!=null) {
+				dataAberturaConvertida = sdf.parse(dataAbertura);
+				empresa.setDataAbertura(dataAberturaConvertida);
+			}
 		} catch (ParseException e) {
 			throw new ServletException(e);
 		}
-		if("".equals(id)) {
+		if ("".equals(id)) {
 			Banco.adiciona(empresa);
-		}
-		else {
+		} else {
 			Empresa empresaEditada = Banco.getEmpresa(Integer.parseInt(id));
 			empresaEditada.setNome(nomeEmpresa);
 			empresaEditada.setDataAbertura(dataAberturaConvertida);
-			
-		}
-		response.sendRedirect("/gerenciador/listaEmpresas");
-	}
 
+		}
+		response.sendRedirect("entrada?acao=ListaEmpresas");
+	}
 }

@@ -9,12 +9,10 @@ import javax.servlet.http.HttpServletResponse;
 import br.com.alura.gerenciador.acao.Acao;
 
 public class Controller {
-	private String parametro;
 	private Acao acao;
 
 	public Controller(String parametro) throws InstantiationException, IllegalAccessException, ClassNotFoundException {
 		super();
-		this.parametro = parametro;
 		acao = (Acao) Class.forName("br.com.alura.gerenciador.acao." + parametro).newInstance();
 	}
 

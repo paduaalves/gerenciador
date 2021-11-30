@@ -25,16 +25,6 @@ public class UnicaEntradaServlet extends HttpServlet {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-//		if (paramAcao.equals("listaEmpresas")) {
-//			 acao = new ListaEmpresas();
-//			acao.executa(request, response);
-//		} else if (paramAcao.equals("mostraEmpresa")) {
-//			acao = new MostraEmpresa();
-//			acao.executa(request, response);
-//		} else if (paramAcao.equals("removeEmpresa")) {
-//			acao = new RemoveEmpresa();
-//			acao.executa(request, response);
-//		}
 	}
 
 }
