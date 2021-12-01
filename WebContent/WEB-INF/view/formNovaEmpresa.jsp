@@ -8,6 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+<c:import url="logout-parcial.jsp"></c:import>
 	<form action="${cadastraEmpresa}" method="post">
 		<input type="hidden" name="id" value="${empresa.id}"> <input
 			type="hidden" name="acao" value="CadastraEmpresa"> Nome: <input
