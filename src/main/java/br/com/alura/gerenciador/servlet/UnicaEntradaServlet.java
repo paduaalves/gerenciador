@@ -23,16 +23,7 @@ public class UnicaEntradaServlet extends HttpServlet {
 	private static String ROOT_PATH="WEB-INF/view/";
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
-			String paramAcao = request.getParameter("acao");
-			HttpSession sessao = request.getSession();
-			
-			boolean usuarioNaoEstaLogado = (sessao.getAttribute("usuario")==null);
-			boolean ehUmaAcaoProtegida = !(paramAcao.equals("Login") || paramAcao.equals("LoginForm"));
-			
-			if(ehUmaAcaoProtegida && usuarioNaoEstaLogado) {
-				response.sendRedirect("entrada?acao=LoginForm");
-				return;
-			}
+
 			Acao acao = (Acao) Class.forName("br.com.alura.gerenciador.acao." + request.getParameter("acao")).newInstance();
 			String destino = acao.executa(request, response);
 			if(TipoReposta.FOWARD.equals(acao.getTipoReposta())){
