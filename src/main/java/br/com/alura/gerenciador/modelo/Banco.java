@@ -18,10 +18,10 @@ public class Banco {
 		lista.add(new Empresa(2, "Alura", new Date()));
 		lista.add(new Empresa(3, "Celum", new Date()));
 		Banco.id = 4;
-		
-		Usuario u1 =Usuario.builder().login("padua").senha("padua").build();
-		Usuario u2 =Usuario.builder().login("eliz").senha("eliz").build();
-		usuarios= new ArrayList<Usuario>();
+
+		Usuario u1 = Usuario.builder().login("padua").senha("padua").build();
+		Usuario u2 = Usuario.builder().login("eliz").senha("eliz").build();
+		usuarios = new ArrayList<Usuario>();
 		usuarios.add(u1);
 		usuarios.add(u2);
 	}
@@ -41,15 +41,13 @@ public class Banco {
 	};
 
 	public static Empresa getEmpresa(Integer id) {
-		for (Empresa empresa : lista) {
-			if (empresa.getId().equals(id)) {
-				return empresa;
-			}
-		}
-		return null;
+		Optional<Empresa> empresa = lista.stream().filter(e->e.getId().equals(id)).findFirst();
+		return empresa.isPresent() ? empresa.get() : null;
 	}
-	public static boolean possuiCadastro(Usuario usuario) {
-		Optional<Usuario> user = usuarios.stream().filter(u->u.ehIgual(usuario.getLogin(), usuario.getSenha())).findFirst();
-		return user.isPresent();
+
+	public static Usuario possuiCadastro(Usuario usuario) {
+		Optional<Usuario> user = usuarios.stream().filter(u -> u.ehIgual(usuario.getLogin(), usuario.getSenha()))
+				.findFirst();
+		return user.isPresent() ? user.get() : null;
 	}
 }

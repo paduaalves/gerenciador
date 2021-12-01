@@ -19,12 +19,13 @@ public class Login implements Acao {
 		String login = request.getParameter("login");
 		String senha = request.getParameter("senha");
 		Usuario u = Usuario.builder().login(login).senha(senha).build();
-		if(Banco.possuiCadastro(u)) {
+		u= Banco.possuiCadastro(u);
+		if(u!=null) {
+			request.getSession().setAttribute("usuario", u);
 			return "entrada?acao=ListaEmpresas";
 		}
-		else {
-			return "entrada?acao=LoginForm";
-		}
+
+		return "entrada?acao=LoginForm";
 	}
 
 	@Override

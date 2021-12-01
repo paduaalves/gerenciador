@@ -17,6 +17,10 @@
 </head>
 <body>
 
+	Usuario logado: ${usuario.login}
+	<br/>	
+	<br/>
+	<br/>
 	<c:if test="${not empty empresa }">
 		Empresa ${empresa.nome} cadastrada com sucesso!
 	</c:if>
