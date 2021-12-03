@@ -33,7 +33,6 @@ public class ControladorFilter implements Filter {
 
 		HttpServletRequest reqHttp = (HttpServletRequest) request;
 		HttpServletResponse respHttp = (HttpServletResponse) response;
-
 		try {
 			Acao acao = (Acao) Class.forName("br.com.alura.gerenciador.acao." + request.getParameter("acao"))
 					.newInstance();

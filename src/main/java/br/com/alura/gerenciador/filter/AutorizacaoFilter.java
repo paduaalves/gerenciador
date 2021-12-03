@@ -30,7 +30,7 @@ public class AutorizacaoFilter implements Filter {
 		HttpSession sessao = requestHttp.getSession();
 
 		boolean usuarioNaoEstaLogado = (sessao.getAttribute("usuario") == null);
-		boolean ehUmaAcaoProtegida = !(paramAcao.equals("Login") || paramAcao.equals("LoginForm"));
+		boolean ehUmaAcaoProtegida = !("Login".equals(paramAcao) || "LoginForm".equals(paramAcao));
 
 		if (ehUmaAcaoProtegida && usuarioNaoEstaLogado) {
 			responseHttp.sendRedirect("entrada?acao=LoginForm");

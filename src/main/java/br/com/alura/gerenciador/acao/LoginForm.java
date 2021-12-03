@@ -9,10 +9,12 @@ import javax.servlet.http.HttpServletResponse;
 import br.com.alura.gerenciador.enums.TipoReposta;
 
 public class LoginForm implements Acao {
-	
+
 	@Override
-	public String executa(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		return "formLogin.jsp";	}
+	public String executa(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		return "formLogin.jsp";
+	}
 
 	@Override
 	public TipoReposta getTipoReposta() {
