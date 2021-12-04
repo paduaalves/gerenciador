@@ -22,3 +22,4 @@
 *.tar.gz
 *.rar
 /build/
+/target/
