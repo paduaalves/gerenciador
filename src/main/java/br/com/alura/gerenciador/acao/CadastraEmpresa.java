@@ -1,6 +1,7 @@
 package br.com.alura.gerenciador.acao;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -10,13 +11,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import br.com.alura.gerenciador.enums.TipoReposta;
-import br.com.alura.gerenciador.modelo.Banco;
+import br.com.alura.gerenciador.modelo.DAO;
 import br.com.alura.gerenciador.modelo.Empresa;
 
 public class CadastraEmpresa implements Acao {
 	
 	@Override
 	public String executa(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		DAO dao = new DAO();
+		
 		String id = request.getParameter("id");
 		String nomeEmpresa = request.getParameter("nome");
 		String dataAbertura = request.getParameter("dataAbertura");
@@ -28,15 +32,14 @@ public class CadastraEmpresa implements Acao {
 				dataAberturaConvertida = sdf.parse(dataAbertura);
 				empresa.setDataAbertura(dataAberturaConvertida);
 			}
-		} catch (ParseException e) {
+			if ("".equals(id)) {
+				dao.adiciona(empresa);
+			} else {
+				empresa.setId(Integer.valueOf(id));
+				dao.altera(empresa);
+			}
+		} catch (ParseException | SQLException e) {
 			throw new ServletException(e);
-		}
-		if ("".equals(id)) {
-			Banco.adiciona(empresa);
-		} else {
-			Empresa empresaEditada = Banco.getEmpresa(Integer.parseInt(id));
-			empresaEditada.setNome(nomeEmpresa);
-			empresaEditada.setDataAbertura(dataAberturaConvertida);
 		}
 		return "entrada?acao=ListaEmpresas";
 	}
