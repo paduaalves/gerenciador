@@ -7,10 +7,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import br.com.alura.gerenciador.dao.UsuarioDAO;
 import br.com.alura.gerenciador.enums.TipoReposta;
 import br.com.alura.gerenciador.modelo.ConnectionFactory;
 import br.com.alura.gerenciador.modelo.Usuario;
-import br.com.alura.gerenciador.modelo.UsuarioDAO;
 
 public class Login implements Acao {
 	
