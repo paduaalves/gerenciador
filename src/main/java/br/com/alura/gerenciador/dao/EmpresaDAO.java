@@ -1,4 +1,4 @@
-package br.com.alura.gerenciador.modelo;
+package br.com.alura.gerenciador.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,10 +8,12 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.alura.gerenciador.modelo.Empresa;
+import br.com.alura.gerenciador.modelo.Usuario;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public class DAO {
+public class EmpresaDAO {
 
     private Connection connection;
 
@@ -46,10 +48,10 @@ public class DAO {
         return empresas;
     }
 
-    public void remove(Empresa empresa) throws SQLException {
+    public void remove(Integer id) throws SQLException {
         String query = "DELETE FROM empresa WHERE ID = ?";
         PreparedStatement ps = connection.prepareStatement(query);
-        ps.setInt(1, empresa.getId());
+        ps.setInt(1, id);
         ps.execute();
     };
 
