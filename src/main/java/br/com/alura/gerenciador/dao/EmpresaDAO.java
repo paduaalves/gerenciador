@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.alura.gerenciador.modelo.Empresa;
-import br.com.alura.gerenciador.modelo.Usuario;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
@@ -40,10 +39,11 @@ public class EmpresaDAO {
         List<Empresa> empresas = new ArrayList<>();
         String query = "SELECT * FROM empresa";
         PreparedStatement ps = connection.prepareStatement(query);
-        ResultSet rs = ps.executeQuery();
-        while (rs.next()) {
-            Empresa empresa = new Empresa(rs.getInt(1), rs.getString(2), rs.getDate(3));
-            empresas.add(empresa);
+        try (ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                Empresa empresa = new Empresa(rs.getInt(1), rs.getString(2), rs.getDate(3));
+                empresas.add(empresa);
+            }
         }
         return empresas;
     }
@@ -60,26 +60,14 @@ public class EmpresaDAO {
         String query = "SELECT * FROM empresa WHERE ID = ?";
         PreparedStatement ps = connection.prepareStatement(query);
         ps.setInt(1, id);
-        ResultSet rs = ps.executeQuery();
+        try (ResultSet rs = ps.executeQuery()) {
 
-        while (rs.next()) {
-            Empresa empresa = new Empresa(rs.getInt(1), rs.getString(2), rs.getDate(3));
-            return empresa;
+            while (rs.next()) {
+                Empresa empresa = new Empresa(rs.getInt(1), rs.getString(2), rs.getDate(3));
+                return empresa;
+            }
         }
         return null;
     }
 
-    public Usuario possuiCadastro(Usuario usuario) throws SQLException {
-        String query = "SELECT * FROM usuario WHERE login = ? and senha = ?";
-        PreparedStatement ps = connection.prepareStatement(query);
-        ps.setString(1, usuario.getLogin());
-        ps.setString(2, usuario.getSenha());
-        ResultSet rs = ps.executeQuery();
-
-        while (rs.next()) {
-            Usuario usuarioLogado = new Usuario(rs.getString(1), rs.getString(2));
-            return usuarioLogado;
-        }
-        return null;
-    }
 }
