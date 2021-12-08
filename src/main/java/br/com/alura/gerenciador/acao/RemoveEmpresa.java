@@ -8,12 +8,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import br.com.alura.gerenciador.enums.TipoReposta;
+import br.com.alura.gerenciador.modelo.ConnectionFactory;
 import br.com.alura.gerenciador.modelo.DAO;
 import br.com.alura.gerenciador.modelo.Empresa;
 
 public class RemoveEmpresa implements Acao {
 	
-	private DAO dao = new DAO();
+	private DAO dao = new DAO(ConnectionFactory.recuperarConexao());;
 
 	@Override
 	public String executa(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

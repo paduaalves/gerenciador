@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import br.com.alura.gerenciador.enums.TipoReposta;
+import br.com.alura.gerenciador.modelo.ConnectionFactory;
 import br.com.alura.gerenciador.modelo.DAO;
 import br.com.alura.gerenciador.modelo.Usuario;
 
@@ -15,7 +16,7 @@ public class Login implements Acao {
 	
 	@Override
 	public String executa(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		DAO dao = new DAO();
+		DAO dao = new DAO(ConnectionFactory.recuperarConexao());
 		String login = request.getParameter("login");
 		String senha = request.getParameter("senha");
 		Usuario u = Usuario.builder().login(login).senha(senha).build();

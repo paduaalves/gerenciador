@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import br.com.alura.gerenciador.enums.TipoReposta;
+import br.com.alura.gerenciador.modelo.ConnectionFactory;
 import br.com.alura.gerenciador.modelo.DAO;
 import br.com.alura.gerenciador.modelo.Empresa;
 
@@ -16,8 +17,7 @@ public class ListaEmpresas implements Acao {
 
 	@Override
 	public String executa(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		DAO dao = new DAO();
-		List<Empresa> lista;
+		DAO dao = new DAO(ConnectionFactory.recuperarConexao());		List<Empresa> lista;
 		try {
 			lista = dao.getEmpresas();
 		} catch (SQLException e) {

@@ -8,13 +8,12 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
 public class DAO {
 
     private Connection connection;
-
-    public DAO() {
-        connection = ConnectionFactory.recuperarConexao();
-    }
 
     public void adiciona(Empresa empresa) throws SQLException {
         String query = "INSERT INTO empresa (nome, data_criacao) VALUES (?, ?)";
@@ -40,7 +39,6 @@ public class DAO {
         String query = "SELECT * FROM empresa";
         PreparedStatement ps = connection.prepareStatement(query);
         ResultSet rs = ps.executeQuery();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         while (rs.next()) {
             Empresa empresa = new Empresa(rs.getInt(1), rs.getString(2), rs.getDate(3));
             empresas.add(empresa);
@@ -61,7 +59,6 @@ public class DAO {
         PreparedStatement ps = connection.prepareStatement(query);
         ps.setInt(1, id);
         ResultSet rs = ps.executeQuery();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
         while (rs.next()) {
             Empresa empresa = new Empresa(rs.getInt(1), rs.getString(2), rs.getDate(3));

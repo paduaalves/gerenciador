@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import br.com.alura.gerenciador.modelo.ConnectionFactory;
 import br.com.alura.gerenciador.modelo.DAO;
 import br.com.alura.gerenciador.modelo.Empresa;
 import br.com.alura.gerenciador.webservice.ClienteWebService;
@@ -18,7 +19,7 @@ import br.com.alura.gerenciador.webservice.Resposta;
 @WebServlet("/empresas")
 public class EmpresaService extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private DAO dao = new DAO();
+	private DAO dao = new DAO(ConnectionFactory.recuperarConexao());
 	protected void service(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try {
