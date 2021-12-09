@@ -16,7 +16,7 @@ public class Login implements Acao {
 	
 	@Override
 	public String executa(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		UsuarioDAO dao = new UsuarioDAO(ConnectionFactory.recuperarConexao());
+		UsuarioDAO dao = new UsuarioDAO(ConnectionFactory.gEntityManager());
 		String login = request.getParameter("login");
 		String senha = request.getParameter("senha");
 		Usuario u = Usuario.builder().login(login).senha(senha).build();

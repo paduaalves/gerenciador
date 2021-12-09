@@ -1,7 +1,6 @@
 package br.com.alura.gerenciador.acao;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -20,7 +19,7 @@ public class CadastraEmpresa implements Acao {
 	@Override
 	public String executa(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		EmpresaDAO dao = new EmpresaDAO(ConnectionFactory.recuperarConexao());
+		EmpresaDAO dao = new EmpresaDAO(ConnectionFactory.gEntityManager());
 		
 		String id = request.getParameter("id");
 		String nomeEmpresa = request.getParameter("nome");
@@ -39,7 +38,7 @@ public class CadastraEmpresa implements Acao {
 				empresa.setId(Integer.valueOf(id));
 				dao.altera(empresa);
 			}
-		} catch (ParseException | SQLException e) {
+		} catch (ParseException e) {
 			throw new ServletException(e);
 		}
 		return "entrada?acao=ListaEmpresas";

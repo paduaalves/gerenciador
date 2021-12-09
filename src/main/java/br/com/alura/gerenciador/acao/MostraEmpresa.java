@@ -1,7 +1,6 @@
 package br.com.alura.gerenciador.acao;
 
 import java.io.IOException;
-import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -16,16 +15,12 @@ public class MostraEmpresa implements Acao {
 	
 	@Override
 	public String executa(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		EmpresaDAO dao = new EmpresaDAO(ConnectionFactory.recuperarConexao());		
+		EmpresaDAO dao = new EmpresaDAO(ConnectionFactory.gEntityManager());		
 		Empresa empresa;
 		try {
 			empresa = dao.getEmpresa(Integer.valueOf(request.getParameter("id")));
 			request.setAttribute("empresa", empresa);
 		} catch (NumberFormatException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return "formNovaEmpresa.jsp";

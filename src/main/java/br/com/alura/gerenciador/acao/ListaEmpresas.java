@@ -1,7 +1,6 @@
 package br.com.alura.gerenciador.acao;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -18,14 +17,10 @@ public class ListaEmpresas implements Acao {
 	@Override
 	public String executa(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		EmpresaDAO dao = new EmpresaDAO(ConnectionFactory.recuperarConexao());
+		EmpresaDAO dao = new EmpresaDAO(ConnectionFactory.gEntityManager());
 
 		List<Empresa> lista;
-		try {
-			lista = dao.getEmpresas();
-		} catch (SQLException e) {
-			throw new ServletException(e);
-		}
+		lista = dao.getEmpresas();
 		request.setAttribute("empresas", lista);
 		return "listaEmpresas.jsp";
 	}
