@@ -4,12 +4,19 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
@@ -17,16 +24,21 @@ import lombok.Setter;
 @Builder
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @AllArgsConstructor
-@RequiredArgsConstructor
+@NoArgsConstructor
+@Entity
+@Table(name = "empresa")
 public class Empresa {
 
 	@EqualsAndHashCode.Include
-	@NonNull
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
 	private Integer id;
-	@NonNull
+	@Column(name = "nome")
 	private String nome;
-	@NonNull
+	@Column(name = "data_criacao")
 	private Date dataAbertura;
+	@OneToMany(mappedBy ="empresa")
 	private List<Funcionario> funcionarios;
 
 	public List<Funcionario> getFuncionarios(){
