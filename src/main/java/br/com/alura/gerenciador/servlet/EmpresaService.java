@@ -29,7 +29,7 @@ public class EmpresaService extends HttpServlet {
 			ClienteWebService cliente = (ClienteWebService) Class
 					.forName("br.com.alura.gerenciador.webservice.Cliente" + valor)
 					.newInstance();
-			List<Empresa> empresas = dao.getEmpresas();
+			List<Empresa> empresas = dao.buscarTodos();
 			Resposta resposta = cliente.resposta(empresas);
 			response.getWriter().print(resposta.getResposta());
 			response.setContentType(resposta.getContentType().getContentType());

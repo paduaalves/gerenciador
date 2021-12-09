@@ -26,8 +26,8 @@ public class EmpresaDAO {
         em.close();
     }
 
-    public List<Empresa> getEmpresas() {
-        return (List<Empresa>) em.createQuery("select e from Empresa e ").getResultList();
+    public List<Empresa> buscarTodos() {
+        return em.createQuery("select e from Empresa e ", Empresa.class).getResultList();
     }
 
     public void remove(Integer id) {
@@ -38,10 +38,7 @@ public class EmpresaDAO {
     };
 
     public Empresa getEmpresa(Integer id) {
-
-        return (Empresa) em.createQuery("select e from Empresa e where e.id = :id").setParameter("id", id)
-                .getSingleResult();
-
+        return em.find(Empresa.class, id);
     }
 
 }

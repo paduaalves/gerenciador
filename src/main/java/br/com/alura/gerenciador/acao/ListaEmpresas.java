@@ -20,7 +20,7 @@ public class ListaEmpresas implements Acao {
 		EmpresaDAO dao = new EmpresaDAO(ConnectionFactory.gEntityManager());
 
 		List<Empresa> lista;
-		lista = dao.getEmpresas();
+		lista = dao.buscarTodos();
 		request.setAttribute("empresas", lista);
 		return "listaEmpresas.jsp";
 	}
