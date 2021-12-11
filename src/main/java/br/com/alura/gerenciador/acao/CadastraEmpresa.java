@@ -9,18 +9,20 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import br.com.alura.gerenciador.dao.EmpresaDAO;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import br.com.alura.gerenciador.dao.EmpresaRepository;
 import br.com.alura.gerenciador.enums.TipoReposta;
-import br.com.alura.gerenciador.modelo.ConnectionFactory;
 import br.com.alura.gerenciador.modelo.Empresa;
 
 public class CadastraEmpresa implements Acao {
-	
+
+	@Autowired
+	private EmpresaRepository repository;
 	@Override
-	public String executa(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		EmpresaDAO dao = new EmpresaDAO(ConnectionFactory.gEntityManager());
-		
+	public String executa(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
 		String id = request.getParameter("id");
 		String nomeEmpresa = request.getParameter("nome");
 		String dataAbertura = request.getParameter("dataAbertura");
@@ -28,16 +30,14 @@ public class CadastraEmpresa implements Acao {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		Date dataAberturaConvertida = null;
 		try {
-			if(dataAbertura!=null) {
+			if (dataAbertura != null) {
 				dataAberturaConvertida = sdf.parse(dataAbertura);
 				empresa.setDataAbertura(dataAberturaConvertida);
 			}
-			if ("".equals(id)) {
-				dao.adiciona(empresa);
-			} else {
+			if (!"".equals(id)) {
 				empresa.setId(Integer.valueOf(id));
-				dao.altera(empresa);
 			}
+			repository.save(empresa);
 		} catch (ParseException e) {
 			throw new ServletException(e);
 		}

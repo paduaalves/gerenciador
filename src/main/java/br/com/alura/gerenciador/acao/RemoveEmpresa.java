@@ -6,19 +6,21 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import br.com.alura.gerenciador.dao.EmpresaDAO;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import br.com.alura.gerenciador.dao.EmpresaRepository;
 import br.com.alura.gerenciador.enums.TipoReposta;
-import br.com.alura.gerenciador.modelo.ConnectionFactory;
 
 public class RemoveEmpresa implements Acao {
 
-	EmpresaDAO dao = new EmpresaDAO(ConnectionFactory.gEntityManager());
+	@Autowired
+	private EmpresaRepository repository;
 
 	@Override
 	public String executa(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try {
-			dao.remove(Integer.valueOf(request.getParameter("id")));
+			repository.deleteById(Integer.valueOf(request.getParameter("id")));
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
 		}
